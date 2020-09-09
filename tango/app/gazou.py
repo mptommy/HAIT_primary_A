@@ -34,7 +34,7 @@ def detect_red_color(img):
 
 
 # 入力画像の読み込み
-img = cv2.imread("aka_test.jpg")
+img = cv2.imread(".\templates\aka_test.jpg")
 # cv2.imshow('image', img)
 
 # 色検出（赤)
