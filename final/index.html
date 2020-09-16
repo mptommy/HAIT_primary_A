@@ -29,22 +29,38 @@
                         </div>
                     </div>
                 </div>
-        
+
+
+                <form method="POST" action="app.py">
                 <div class='container h-100'>
                     <div class='row h-100 aligh-item-center justify-content-center text-center'>
                         <div class='col-lg-5 aligh-self-end'>
                             <div class="form-group">
-                                <label for="inputFile">Image input</label>
+                                <label for="inputFile">画像を選択Sしてください</label>
                                 <div class="custom-file">
                                     <form method="POST" action="">
-                                        <input type="file" class="custom-file-input" id="inputFile">
-                                        <label class="custom-file-label" for="inputFile">Choose Image</label>
-                                    </form>
+                                        <input type="file" class="custom-file-input" id="inputFile"　name="original">
+                                        <label class="custom-file-label" for="inputFile">Choose Original Image</label>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class='container h-100'>
+                    <div class='row h-100 aligh-item-center justify-content-center text-center'>
+                        <div class='col-lg-5 aligh-self-end'>
+                            <div class="form-group">
+                                <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputFile" name="processed">
+                                        <label class="custom-file-label" for="inputFile">Choose Processed Image</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
     </header>
