@@ -9,7 +9,7 @@
 <div class="alert alert-success" role="alert">{{ message }}<br></div>
 {% endif %}
 
- <div>
+ <div style='background-image:"../img/img1.jpg;"'>
     <header class='masthead'>
         <div class='panel-in'>
             <div class='panel-bg'></div>
@@ -37,7 +37,7 @@
                                 <label for="inputFile">Image input</label>
                                 <div class="custom-file">
                                     <form method="POST" action = "./" method = "POST" enctype = "multipart/form-data">
-                                        <input type="file" class="custom-file-input" id="inputFile">
+                                        <input type="file" class="custom-file-input" id="inputFile" name="file">
                                         <label class="custom-file-label" for="inputFile">Choose Image</label>
                                         <input type = "submit"/>
                                     </form>

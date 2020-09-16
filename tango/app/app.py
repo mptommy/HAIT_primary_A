@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
-from PIL import Image
 import cv2
 from datetime import datetime
 
@@ -21,13 +20,13 @@ def upload_file():
         f = request.files["file"]
         filepath = "./static/request/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
         f.save(filepath)
-        image = Image.open(filepath)
+        
         
         
         #各自作関数による処理
-        _, mimage = gazou.detect_red_color(image)
+        _, maskimage = gazou.detect_red_color(filepath)
         red_path =  "./static/red_masked/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
-        cv2.imwrite(red_path, mimage)
+        cv2.imwrite(red_path, maskimage)
 
         words = gocr.text_detection(red_path)
 
@@ -45,8 +44,8 @@ def upload_file():
 def test():
     #スプレッドシートから単語データを読み込む
     dicc = gsoperate.gsread()
-    
-    return render_template('result.html',dic=dicc)
+    alphabets = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"]
+    return render_template('result.html',dic=dicc, alphabets = alphabets)
 
 
 if __name__ == "__main__":

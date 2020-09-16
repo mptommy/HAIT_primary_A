@@ -46,7 +46,7 @@ def transdict(words):
 
     for word in words:
         tmp = transword(word)
-        dic[tmp[0][0]] = dic[tmp[0][1]]
+        dic[tmp[0][0]] = tmp[0][1]
 
     return dic
 
