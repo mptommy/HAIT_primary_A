@@ -4,7 +4,9 @@ import numpy as np
 
 #とりあえず赤色のみで扱います(ピンクのマーカーもひっかかると思います)
 # 赤色の検出
-def detect_red_color(img):
+def detect_red_color(img_path)
+    # staticに保存されている画像を取り出す
+    img = cv2.imread(img_path)
     # 入力された画像をHSV色空間に変換
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
@@ -33,14 +35,12 @@ def detect_red_color(img):
 
 
 
-# 入力画像の読み込み
-img = cv2.imread(".\templates\aka_test.jpg")
-# cv2.imshow('image', img)
 
-# 色検出（赤)
-red_mask, red_masked_img = detect_red_color(img)
+
+
+
 
 
 # 結果を出力
-cv2.imwrite("read_mask_.jpg", red_mask)
-cv2.imwrite("red_masked_img_.jpg", red_masked_img)
+#cv2.imwrite("read_mask_.jpg", red_mask)
+#cv2.imwrite("red_masked_img_.jpg", red_masked_img)

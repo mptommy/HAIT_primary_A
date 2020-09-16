@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request  #, redirect, url_for, abort
 from PIL import Image
+import cv2
 from datetime import datetime
 
 import gsoperate
+import gazou
 
 app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
@@ -18,9 +20,14 @@ def upload_file():
         
         '''
         #各自作関数による処理
-        image = mask_gazou(image)
-        words = detect(image)
+        _, image = gazou.detect_red_color(image)
+        red_path =  "./static/red_masked/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
+        cv2.imwrite(red_path, image)
+
+        words = detect(red_path)
+
         dic = translate(words)
+
         gsoperate.gsupdate(dic)
         '''
         #スプレッドシートから単語データを引っ張る
