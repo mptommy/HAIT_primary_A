@@ -5,6 +5,7 @@ from datetime import datetime
 
 import gsoperate
 import gazou
+import diction
 
 app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
@@ -20,13 +21,13 @@ def upload_file():
         
         '''
         #各自作関数による処理
-        _, image = gazou.detect_red_color(image)
+        _, mimage = gazou.detect_red_color(image)
         red_path =  "./static/red_masked/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
-        cv2.imwrite(red_path, image)
+        cv2.imwrite(red_path, mimage)
 
-        words = detect(red_path)
+        words = detecr(red_path)
 
-        dic = translate(words)
+        dic = diction.transdict(words)
 
         gsoperate.gsupdate(dic)
         '''

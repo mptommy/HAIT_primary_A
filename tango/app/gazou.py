@@ -4,7 +4,7 @@ import numpy as np
 
 #とりあえず赤色のみで扱います(ピンクのマーカーもひっかかると思います)
 # 赤色の検出
-def detect_red_color(img_path)
+def detect_red_color(img_path):
     # staticに保存されている画像を取り出す
     img = cv2.imread(img_path)
     # 入力された画像をHSV色空間に変換
