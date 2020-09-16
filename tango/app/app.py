@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request  #, redirect, url_for, abort
+from flask import Flask, render_template, request
+from flask_bootstrap import Bootstrap
 from PIL import Image
 import cv2
 from datetime import datetime
@@ -8,6 +9,8 @@ import gazou
 import diction
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
+
 @app.route("/", methods=["GET", "POST"])
 def upload_file():
     if request.method == "GET":
@@ -31,11 +34,18 @@ def upload_file():
 
         gsoperate.gsupdate(dic)
         '''
-        #スプレッドシートから単語データを引っ張る
-        dicc = gsoperate.gsread()
+        message = '単語帳を更新しました'
 
         
-        return render_template("index.html", dicc = dicc)
+        return render_template("index.html", message=message)
+
+# 単語テスト
+@app.route('/result')
+def test():
+    #スプレッドシートから単語データを引っ張る
+    dicc = gsoperate.gsread()
+    
+    return render_template('result.html',dic=dicc)
 
 
 if __name__ == "__main__":
