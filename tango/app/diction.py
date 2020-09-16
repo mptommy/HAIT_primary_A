@@ -33,7 +33,8 @@ def transword(word):
 
     elif lem_dict(word, 'r'):out = lem_dict(word, 'r')
     
-    else:out = 'ERROR'
+    # request が正しいか処理するのが面倒なので、もうエラーとして辞書登録する
+    else:out = [('ERROR','誤り')]
 
     return out
 

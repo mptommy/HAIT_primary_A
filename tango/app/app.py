@@ -7,6 +7,7 @@ from datetime import datetime
 import gsoperate
 import gazou
 import diction
+import gocr
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -22,18 +23,18 @@ def upload_file():
         f.save(filepath)
         image = Image.open(filepath)
         
-        '''
+        
         #各自作関数による処理
         _, mimage = gazou.detect_red_color(image)
         red_path =  "./static/red_masked/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
         cv2.imwrite(red_path, mimage)
 
-        words = detecr(red_path)
+        words = gocr.text_detection(red_path)
 
         dic = diction.transdict(words)
 
         gsoperate.gsupdate(dic)
-        '''
+        
         message = '単語帳を更新しました'
 
         
@@ -42,7 +43,7 @@ def upload_file():
 # 単語テスト
 @app.route('/result')
 def test():
-    #スプレッドシートから単語データを引っ張る
+    #スプレッドシートから単語データを読み込む
     dicc = gsoperate.gsread()
     
     return render_template('result.html',dic=dicc)
