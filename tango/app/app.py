@@ -17,14 +17,18 @@ def upload_file():
         return render_template("index.html")
     if request.method == "POST":
         # アップロードされたファイルを受け取って保存してPILImageで読み込む
-        f = request.files["file"]
-        filepath = "./static/request/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
-        f.save(filepath)
+        f = request.files["original"]
+        marker_path = "./static/request/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
+        f.save(marker_path)
+
+        g = request.files["processed"]
+        pre_path = "./static/request/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
+        f.save(pre_path)
         
         
         
         #各自作関数による処理
-        _, maskimage = gazou.detect_red_color(filepath)
+        _, maskimage = gazou.detect_red_color(marker_path, pre_path)
         red_path =  "./static/red_masked/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
         cv2.imwrite(red_path, maskimage)
 
