@@ -1,7 +1,11 @@
 *.json
 
-css/
+red_masked/
+
+request/
 
 js/
+
+__pycache__/
 
 *.pyc

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response, jsonify
 from flask_bootstrap import Bootstrap
 import cv2
 from datetime import datetime
@@ -16,19 +16,31 @@ def upload_file():
     if request.method == "GET":
         return render_template("index.html")
     if request.method == "POST":
-        # アップロードされたファイルを受け取って保存してPILImageで読み込む
-        f = request.files["original"]
-        marker_path = "./static/request/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
-        f.save(marker_path)
+        # アップロードされたファイルを受け取って保存する
+        paths = []
 
-        g = request.files["processed"]
-        pre_path = "./static/request/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
-        f.save(pre_path)
+        if request.files.getlist('upload_files')[0].filename:
+
+            upload_files = request.files.getlist('upload_files')
+
+            if len(upload_files)!=2:
+                return make_response(jsonify({'result':'expected 2 images but got more or less images.'}))
+
+
+            for upload_file in upload_files:
+                #受信したファイルを保存
+                path = "./static/request/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
+                upload_file.save(path)
+                paths.append(path)
+
+        else:
+            return make_response(jsonify({'result':'file upload error'}))
+        
         
         
         
         #各自作関数による処理
-        _, maskimage = gazou.detect_red_color(marker_path, pre_path)
+        _, maskimage = gazou.detect_red_color(paths[0], paths[1])
         red_path =  "./static/red_masked/" + datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
         cv2.imwrite(red_path, maskimage)
 
